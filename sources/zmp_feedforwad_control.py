@@ -32,10 +32,10 @@ def calc_preview_control(zmp_x, zmp_y, dt, t_preview, t_calc, A_d, B_d, C_d, Gi,
     com_y = []
 
     for i in range(0, int(t_calc/dt)):
-        p_x = np.asscalar(C_d.dot(x_x))
-        p_y = np.asscalar(C_d.dot(x_y))
-        e_x = zmp_x[i] - p_x
-        e_y = zmp_y[i] - p_y
+        y_x = np.asscalar(C_d.dot(x_x))
+        y_y = np.asscalar(C_d.dot(x_y))
+        e_x = zmp_x[i] - y_x
+        e_y = zmp_y[i] - y_y
 
         preview_x = 0
         preview_y = 0
