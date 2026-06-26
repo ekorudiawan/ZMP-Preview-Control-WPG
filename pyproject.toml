@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zmp-preview-control"
+version = "2.0.0"
+description = "ZMP Preview Control — Walking Pattern Generator for Biped Robots"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.21",
+    "scipy>=1.7",
+    "control>=0.9",
+    "matplotlib>=3.4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+gif = ["pillow>=9"]
+
+[project.scripts]
+zmp-preview-ctl = "zmp_preview_control.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["zmp_preview_control*"]

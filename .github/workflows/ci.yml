@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Install package
+        run: pip install -e .
+      - name: Run tests
+        run: |
+          python -c "from zmp_preview_control.params import get_preview_control_parameter; A_d, B_d, C_d, Gi, Gx, Gd = get_preview_control_parameter(0.22, 0.01, 1.0); assert len(Gd) == 101; print('params OK')"
+          python -c "from zmp_preview_control.simulation import simulate; zmp_x, zmp_y, com_x, com_y = simulate(); assert len(com_x) > 0; print('simulation OK')"
